@@ -1,16 +1,6 @@
 require('vis')
 
-local modes = vis.modes
-
-local motion = vis:motion_register(function(win,pos) 
-	return pos - 1	
+vis:map(vis.modes.INSERT, '<Escape>', function()
+	vis:feedkeys('<vis-mode-normal>')
+	vis:feedkeys('<Left>')
 end)
-
-vis:map(modes.INSERT, '<Escape>', function()
-	vis:feedkeys("<vis-mode-normal>")
-
-	vis:motion(motion)
-end)
-
-
-
