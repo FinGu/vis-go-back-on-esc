@@ -1,23 +1,23 @@
 require('vis')
 
-local M = {}
+local last_mode = vis.modes.NORMAL -- trick i found
 
-function M.run()
+local function go_back()
         vis:feedkeys('<vis-mode-normal>')
-	
+
 	if vis.win.selection.col == 1 then -- ignore when at start of the line
 		return
 	end
-	
+
 	vis:feedkeys('<Left>')
 end
 
-function M.setup(opts)
-        opts = opts or {hook = true}
+vis.events.subscribe(vis.events.UI_DRAW, function()
+        local mode = vis.mode
 
-        if opts.hook then
-                vis:map(vis.modes.INSERT, '<Escape>', M.run)
+        if last_mode == vis.modes.INSERT and mode == vis.modes.NORMAL then
+                go_back()
         end
-end
 
-return M
+        last_mode = mode
+end)
