@@ -1,6 +1,6 @@
 require('vis')
 
-local last_mode = vis.modes.NORMAL -- trick i found
+local last_mode = vis.modes.NORMAL -- dumb trick
 
 local function go_back()
         vis:feedkeys('<vis-mode-normal>')
